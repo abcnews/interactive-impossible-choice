@@ -1,0 +1,39 @@
+.Button {
+	position: relative;
+	border: none;
+	border-radius: 5px;
+	padding: 10px 25px;
+	width: 100%;
+	box-sizing: border-box;
+	background-color: $lightGrey;
+	color: $black;
+	font-size: 1.142857143em;
+	font-family: $fontFamilyBasic;
+	line-height: 1.222222;
+	text-align: center;
+	white-space: nowrap;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+	transition: opacity 0.25s $basicTimingFunction, background-color 0.25s $basicTimingFunction, color 0.25s $basicTimingFunction;
+	will-change: opacity, background-color, color;
+}
+
+@media (min-width: #{$Parent-max-width + 2 * $Parent-horizontal-margin}) {
+	.Button {
+		padding: 15px 25px;
+	}
+}
+
+.Button--selected {
+	background-color: $lightBlue;
+	color: $white;
+}
+
+.Button--disabled {
+	cursor: default;
+	cursor: not-allowed;
+}
+
+.Button--disabled:not(.Button--selected) {
+	opacity: 0.5;
+}

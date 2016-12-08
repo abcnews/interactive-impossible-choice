@@ -1,0 +1,29 @@
+.QuestionExpert {
+
+}
+
+@media (max-width: #{$Parent-max-width + 2 * $Parent-horizontal-margin - 1}) {
+  .QuestionExpert {
+    margin: 0 -7.5px;
+  }
+}
+
+.QuestionExpert-response {
+  margin: 0 auto;
+  max-width: $Parent-max-width;
+	font-size: 1.142857143em;
+  font-family: $fontFamilyBasic;
+  text-align: left;
+}
+
+.QuestionExpert-responseLine {
+  margin: 20px 0;
+}
+
+.QuestionExpert-source {
+  color: $grey;
+	font-size: 12px;
+  font-style: italic;
+  font-family: $fontFamilyBasic;
+  text-align: left;
+}

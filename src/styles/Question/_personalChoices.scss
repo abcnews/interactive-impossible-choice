@@ -1,0 +1,15 @@
+.QuestionPersonalChoices {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 12px -5px 0;
+}
+
+.QuestionPersonalChoices-choice {
+	flex: 1 0 90%;
+	margin: 5px;
+}
+
+.QuestionPersonalChoices-choice:first-child:nth-last-child(even),
+.QuestionPersonalChoices-choice:first-child:nth-last-child(even) ~ * {
+	flex-basis: 45%;
+}

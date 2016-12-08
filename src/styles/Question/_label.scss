@@ -1,0 +1,18 @@
+.QuestionLabel {
+	margin: -20px -20px 15px;
+	border-radius: 3px 3px 0 0;
+	padding-top: 0.25em;
+	background-color: $darkGrey;
+	color: $white;
+	font-size: 1em;
+	font-weight: bold;
+	line-height: 1.75;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+@media (min-width: #{$Question-max-width + 2 * $Parent-horizontal-margin}) {
+	.QuestionLabel {
+		margin: -20px -30px 20px;
+	}
+}

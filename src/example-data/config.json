@@ -1,0 +1,31 @@
+{
+	"id": "child-protection--dev",
+	"labels": "What would you do?",
+	"questions": [
+		{
+			"id": "jacob",
+			"statement": "Would you remove Jakob from Amanda's care?",
+			"choices": [
+				"Yes",
+				"No"
+			],
+			"response": [
+				"This is a real case encountered at one of the Benevolent Society's Early Years Centres.",
+				"Jakob is at risk of neglect, which Australian Institute of Health and Welfare data shows is the second most common form of harm reported to the child protection system.",
+				"Neglect includes not only failing to give children the basic necessities such as food, clothes and health care, but also neglecting to supervise them so that they are at risk of physical or sexual abuse.",
+				"But child protection workers view intervening with a child protection order to remove the child from their mother as a last resort.",
+				"Paula Hayden, a social worker with 35 years of experience in child protection who works with Winangay, an organisation helping to ensure that Aboriginal children remain with family and kin, told ABC News that said she would not remove Jakob from Amanda's care and one of the key reasons was that he was going to childcare.",
+				"\"What I need to know is that the kids are being seen by other people in the community,\" she said. \"It's incredibly dangerous for children, especially babies, if they are not being seen.\"",
+				"She would ask Amanda about the times when she did feel she was the parent she wanted to be for Jakob and who and what support services could get her to that point again.",
+				"\"I would want to gather evidence from other people in the community and assess her willingness to engage in services is critical,\" she said.",
+				"In this case, Amanda knew she was not coping and was willing to get help.",
+				"She went to a doctor who helped her detox and deal with her depression, Jakob went into full time child care for a few weeks to give her a break and Amanda was helped to work out a payment plan with the public housing authority.",
+				"Once she started to get on top of her problems, she went to a parenting education program to learn how to manage Jakob's behaviour."
+			],
+			"source": {
+				"name": "Benevolent Society practice resources",
+				"url": "http://google.com/"
+			}
+		}
+	]
+}

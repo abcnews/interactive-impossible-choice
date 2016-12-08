@@ -1,0 +1,52 @@
+.Question {
+	position: relative;
+	margin: 40px auto;
+	border-radius: 5px;
+	padding: 20px 20px 15px;
+	width: 100%;
+	max-width: $Question-max-width;
+	box-sizing: border-box;
+	box-shadow: $boxShadow;
+	background-color: $white;
+	font-family: $fontFamily;
+	font-size: 14px;
+	text-align: center;
+	line-height: 1.4;
+	animation: fadeIn .25s both;
+	will-change: opacity;
+}
+
+@media (min-width: #{$Parent-max-width + 2 * $Parent-horizontal-margin}) {
+	.Question {
+		margin: 40px calc(-50vw + #{$Parent-max-width / 2 + $Parent-horizontal-margin});
+		width: calc(100vw - #{2 * $Parent-horizontal-margin});
+		font-size: 	16px;
+	}
+}
+
+@media (min-width: #{$Question-max-width + 2 * $Parent-horizontal-margin}) {
+	.Question {
+		margin: 40px #{($Question-max-width - $Parent-max-width) / -2};
+  	padding: 20px 30px;
+	}
+}
+
+.Question .h1,
+.Question .h2 {
+	margin: 0;
+	font-weight: bold;
+	line-height: 1.2222;
+}
+
+.Question .h1 {
+	font-size: 1.285714286em;
+}
+
+.Question .h2 {
+	margin: 25px 0 0 0;
+	font-size: 1.142857143em;
+}
+
+.Question .h1 + .h2 {
+	margin-top: 10px;
+}
