@@ -9,7 +9,7 @@ const view = (state, send) => {
 		return Math.round(value / state.publicGuessesTotal * 100);
 	});
 
-  return yo`<div class="Question">
+  return yo`<div class="Question${state.isMock ? ' Question--mock' : ''}">
   	<div class="QuestionLabel">${state.label || 'Question'}</div>
   	<div class="h1">${state.statement}</div>
   	${personalChoicesView(state, send)}
@@ -80,3 +80,22 @@ const expertView = state => {
 };
 
 module.exports = view;
+
+const MOCK_DATA = {
+	isMock: true,
+	id: 'mock',
+	label: ' ',
+	statement: '▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆​▆▆▆▆▆▆▆▆▆▆▆▆',
+	choices: [' ', ' '],
+	guess: null,
+	publicGuesses: [0, 0]
+};
+
+const MOCK_SEND = () => {};
+MOCK_SEND.event = MOCK_SEND;
+
+const mockView = () => {
+	return view(MOCK_DATA, MOCK_SEND);
+};
+
+module.exports.mockView = mockView;

@@ -22,6 +22,7 @@ const firebase  = require('firebase/app');
                   require('firebase/database');
 const ns        = require('util-news-selectors');
 const app       = require('./app');
+const mockView  = require('./app/views/question').mockView;
 
 const PROJECT_ID = 'interactive-impossible-choice';
 const HTML_FRAGMENT_SELECTOR = ns('embed:fragment');
@@ -30,6 +31,12 @@ const FIREBASE_APP_CONFIG = {
   authDomain: 'impossible-choice.firebaseapp.com',
   databaseURL: 'https://impossible-choice.firebaseio.com',
   storageBucket: 'impossible-choice.appspot.com'
+};
+
+const mock = ($$questions) => {
+  $$questions.each((index, el) => {
+    $(el).append(mockView());
+  });
 };
 
 const init = (config, $$questions) => {
@@ -43,14 +50,16 @@ const init = (config, $$questions) => {
 
     $$questions.each((index, el) => {
       const $question = $(el);
+      const $mock = $question.children().first();
       const id = $question.data(dataAttr('question'));
       const question = config.questions.filter(question => question.id === id)[0];
 
       if (question == null) {
+        $mock.remove();
         return;
       }
 
-      $question.append(views.questions[id]);
+      $mock.replaceWith(views.questions[id]);
     });
   });
 
@@ -110,6 +119,7 @@ $(() => {
     fetches[1].resolve();
   }
 
+  mock($$questions);
 
   $.when(fetches[0], fetches[1]).done((config, dbDump) => {
     config.dbDump = dbDump;
