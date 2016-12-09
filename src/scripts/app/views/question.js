@@ -18,7 +18,7 @@ const view = (state, send) => {
   		publicResultView(state),
   		publicChoicesView(state),
   		yo`<div class="QuestionPublicResponses">from ${state.publicGuessesTotal} responses</div>`,
-			expertView(state)
+			(state.response && state.response.length ? expertView(state) : null)
 		] : null}
   </div>`;
 };
@@ -71,7 +71,7 @@ const expertView = state => {
 	return yo`<div class="QuestionExpert">
 		<div class="h1">The expert's response:</div>
 		<div class="QuestionExpert-response">
-			${state.response.map(line => yo`<div class="QuestionExpert-responseLine">${line}</div>`)}
+			${state.response}
 		</div>
 		${typeof state.source !== 'object' ? null : yo`<div class="QuestionExpert-source">Source:
 			${state.source.url ? yo`<a href="${state.source.url}">${state.source.name}</a>` : state.source.name}

@@ -123,6 +123,26 @@ $(() => {
 
   $.when(fetches[0], fetches[1]).done((config, dbDump) => {
     config.dbDump = dbDump;
+
+		$$questions.each((index, el) => {
+      const $question = $(el);
+      const id = $question.data(dataAttr('question'));
+      const question = config.questions.filter(question => question.id === id)[0];
+
+      if (question == null) {
+        return;
+      }
+
+			question.response = [];
+
+			let $next = $question.next();
+
+			while ($next.length && !$next.is('h2,a[name]')) {
+				question.response.push($next.addClass('is-part-of-response').get(0));
+				$next = $next.next();
+			}
+    });
+
     init(config, $$questions);
   });
 

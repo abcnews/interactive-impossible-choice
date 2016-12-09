@@ -44,6 +44,7 @@
 }
 
 .Question .h1 {
+	margin-bottom: 10px;
 	font-size: 1.285714286em;
 }
 
@@ -52,6 +53,6 @@
 	font-size: 1.142857143em;
 }
 
-.Question .h1 + .h2 {
-	margin-top: 10px;
+.Question .is-part-of-response {
+  display: block;
 }
