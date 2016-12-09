@@ -73,7 +73,9 @@ const expertView = state => {
 		<div class="QuestionExpert-response">
 			${state.response.map(line => yo`<div class="QuestionExpert-responseLine">${line}</div>`)}
 		</div>
-		${typeof state.source === 'object' ? yo`<div class="QuestionExpert-source">Source: <a href="${state.source.url}">${state.source.name}</a></div>` : null}
+		${typeof state.source !== 'object' ? null : yo`<div class="QuestionExpert-source">Source:
+			${state.source.url ? yo`<a href="${state.source.url}">${state.source.name}</a>` : state.source.name}
+		</div>`}
 	</div>`;
 };
 
