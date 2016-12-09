@@ -19,10 +19,6 @@ h1 > .Series {
   font-weight: bold !important;
 }
 
-[name="case"] ~ [name="case"] + h2 {
-  margin-top: 2em !important;
-}
-
 @media (min-width: #{$Parent-max-width + 2 * $Parent-horizontal-margin}) {
   [name="case"] + h2 {
     font-size: 24px !important;
@@ -39,8 +35,4 @@ h1 > .Series {
   max-width: $Parent-max-width;
   height: 0;
 	border-bottom: 1px dashed $grey;
-}
-
-[name="case"] ~ [name="case"] + h2::before {
-  content: none;
 }
