@@ -17,6 +17,7 @@ module.exports = {
 
 	prod: {
 		options: {
+			sourcemap: "none",
 			style: "compressed"
 		},
 		files: [

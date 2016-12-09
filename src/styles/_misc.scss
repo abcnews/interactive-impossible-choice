@@ -1,0 +1,46 @@
+h1 > .Series {
+  margin-bottom: 0.25em;
+  color: $orange;
+  font-size: 18px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+@media (min-width: #{$Parent-max-width + 2 * $Parent-horizontal-margin}) {
+  h1 > .Series {
+    font-size: 22px;
+  }
+}
+
+[name="case"] + h2 {
+  position: relative;
+  margin-top: 3.25em !important;
+  font-size: 20px !important;
+  font-weight: bold !important;
+}
+
+[name="case"] ~ [name="case"] + h2 {
+  margin-top: 2em !important;
+}
+
+@media (min-width: #{$Parent-max-width + 2 * $Parent-horizontal-margin}) {
+  [name="case"] + h2 {
+    font-size: 24px !important;
+  }
+}
+
+[name="case"] + h2::before {
+  content: "";
+  transform: translate(-50%, 0);
+  position: absolute;
+  top: -1.75em;
+  left: 50%;
+  width: 75vw;
+  max-width: $Parent-max-width;
+  height: 0;
+	border-bottom: 1px dashed $grey;
+}
+
+[name="case"] ~ [name="case"] + h2::before {
+  content: none;
+}

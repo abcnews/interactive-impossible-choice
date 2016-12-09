@@ -41,6 +41,13 @@ const init = (config, $$questions) => {
       $question.append(views.questions[id]);
     });
   });
+
+  const $title = $('h1');
+  const titleParts = $title.html().split(': ');
+
+  if (titleParts.length === 2) {
+    $title.html(`<div class="Series">${titleParts[0]}:</div>${titleParts[1]}`);
+  }
 };
 
 const dataAttr = key => `${PROJECT_ID}-${key}`;
