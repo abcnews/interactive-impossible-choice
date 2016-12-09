@@ -5,7 +5,19 @@
  * @author Colin Gourlay <gourlay.colin@abc.net.au>
  */
 
+// Becasue Phase 2's require.js interferes with UMD module imports
+if (typeof define === 'function' && define.amd) {
+	define._amd = define.amd;
+	delete define.amd;
+}
+
 const fastclick = require('fastclick');
+
+if (typeof define === 'function' && define._amd) {
+	define.amd = define._amd;
+	delete define._amd;
+}
+
 const firebase  = require('firebase/app');
                   require('firebase/database');
 const ns        = require('util-news-selectors');
