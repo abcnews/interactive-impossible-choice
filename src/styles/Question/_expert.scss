@@ -11,14 +11,18 @@
 .QuestionExpert-response {
   margin: 0 auto;
   max-width: $Parent-max-width;
-	// font-size: 1.142857143em;
   font-family: $fontFamilyBasic;
   text-align: left;
 }
 
-// .QuestionExpert-responseLine {
-//   margin: 20px 0;
-// }
+.QuestionExpert-response h2,
+.QuestionExpert-response h3, {
+  margin: 0 0 10px !important;
+  font-size: 1.285714286em !important;
+  font-weight: bold !important;
+  line-height: 1.2222 !important;
+  text-align: center;
+}
 
 .QuestionExpert-source {
   color: $grey;
