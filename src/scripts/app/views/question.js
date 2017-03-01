@@ -69,7 +69,6 @@ const publicChoicesView = state => {
 
 const expertView = state => {
 	return yo`<div class="QuestionExpert">
-		<div class="h1">The expert's response:</div>
 		<div class="QuestionExpert-response">
 			${state.response}
 		</div>
