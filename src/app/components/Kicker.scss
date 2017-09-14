@@ -1,0 +1,15 @@
+@import "../../variables";
+
+h1 > .Kicker {
+  margin-bottom: 0.25em;
+  color: $orange;
+  font-size: 18px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+@media (min-width: #{$Parent-max-width + 2 * $Parent-horizontal-margin}) {
+  h1 > .Kicker {
+    font-size: 22px;
+  }
+}

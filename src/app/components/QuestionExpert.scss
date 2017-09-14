@@ -11,7 +11,6 @@
 .QuestionExpert-response {
   margin: 0 auto;
   max-width: $Parent-max-width;
-  font-family: $fontFamilyBasic;
   text-align: left;
 }
 
@@ -28,6 +27,6 @@
   color: $grey;
 	font-size: 12px;
   font-style: italic;
-  font-family: $fontFamilyBasic;
+  font-family: $fontSans;
   text-align: left;
 }

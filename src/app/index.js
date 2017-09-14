@@ -1,7 +1,7 @@
 const raf = require('raf');
 const sendAction = require('send-action');
 const yo = require('yo-yo');
-const questionView = require('./views/question');
+const Question = require('./components/Question');
 
 const questionsFromConfig = config => config.questions.map(question => Object.assign({guess: null, label: config.labels}, question));
 
@@ -61,7 +61,7 @@ const app = (config, callback) => {
       onchange: (params, state) => {
         raf(() => {
           state.questions.forEach(questionState => {
-            yo.update(views.questions[questionState.id], questionView(questionState, send));
+            yo.update(views[questionState.id], Question(questionState, send));
           });
         });
       },
@@ -70,13 +70,11 @@ const app = (config, callback) => {
       }
     });
 
-    const views = {
-      questions: send.state().questions.reduce((memo, questionState) => {
-        memo[questionState.id] = questionView(questionState, send);
+    const views = send.state().questions.reduce((memo, questionState) => {
+      memo[questionState.id] = Question(questionState, send);
 
-        return memo;
-      }, {})
-    };
+      return memo;
+    }, {});
 
     callback(null, views);
   };
@@ -91,6 +89,5 @@ const app = (config, callback) => {
     callback(new Error('No database or dbDump provided, or config.id not present in either.'));
   }
 };
-
 
 module.exports = app;

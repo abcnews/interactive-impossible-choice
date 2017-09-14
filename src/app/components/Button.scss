@@ -1,3 +1,5 @@
+@import "../../variables";
+
 .Button {
 	position: relative;
 	border: none;
@@ -7,8 +9,8 @@
 	box-sizing: border-box;
 	background-color: $lightGrey;
 	color: $black;
+	font-family: $fontSans;
 	font-size: 1.142857143em;
-	font-family: $fontFamilyBasic;
 	line-height: 1.222222;
 	text-align: center;
 	white-space: nowrap;

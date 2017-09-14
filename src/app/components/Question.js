@@ -1,8 +1,9 @@
 const yo = require('yo-yo');
+require('./Question.scss');
 
 const sum = (a, b) => a + b;
 
-const view = (state, send) => {
+const Question = (state, send) => {
 	state.publicGuessesTotal = state.publicGuesses.reduce(sum, 0);
 
 	state.publicGuessPercentages = state.publicGuesses.map(value => {
@@ -12,18 +13,18 @@ const view = (state, send) => {
   return yo`<div class="Question${state.isMock ? ' Question--mock' : ''}">
   	<div class="QuestionLabel">${state.label || 'Question'}</div>
   	<div class="h1">${state.statement}</div>
-  	${personalChoicesView(state, send)}
+  	${QuestionPersonalChoices(state, send)}
 		${state.guess !== null ? [
   		yo`<div class="h2">What does everybody else think?</div>`,
-  		publicResultView(state),
-  		publicChoicesView(state),
+  		QuestionPublicResult(state),
+  		QuestionPublicChoices(state),
   		yo`<div class="QuestionPublicResponses">from ${state.publicGuessesTotal} responses</div>`,
-			(state.response && state.response.length ? expertView(state) : null)
+			(state.response && state.response.length ? QuestionExpert(state) : null)
 		] : null}
   </div>`;
 };
 
-const personalChoicesView = (state, send) => {
+const QuestionPersonalChoices = (state, send) => {
 	return yo`<div class="QuestionPersonalChoices">
 		${state.choices.map((choice, index) => {
 			let className = 'Button';
@@ -37,19 +38,19 @@ const personalChoicesView = (state, send) => {
 			}
 
 			return yo`<div class="QuestionPersonalChoices-choice">
-				<div class="${className}" onclick=${send.event('guess', {question: state.id, guess: index})} }>${choice}</div>
+				<div class="${className}" onclick=${send.event('guess', {question: state.id, guess: index})}>${choice}</div>
 			</div>`;
 		})}
 	</div>`;
 };
 
-const publicResultView = state => {
+const QuestionPublicResult = state => {
 	return yo`<div class="QuestionPublicResult">
 		${state.publicGuessPercentages[state.guess]}% of respondents agree with you so far.
 	</div>`;
 };
 
-const publicChoicesView = state => {
+const QuestionPublicChoices = state => {
 	return yo`<div class="QuestionPublicChoices">
 		${state.choices.map((choice, index) => {
 			let className = 'QuestionPublicChoices-choice';
@@ -67,9 +68,9 @@ const publicChoicesView = state => {
 	</div>`;
 };
 
-const expertView = state => {
+const QuestionExpert = state => {
 	return yo`<div class="QuestionExpert">
-		<div class="QuestionExpert-response">
+		<div class="QuestionExpert-response u-richtext">
 			${state.response}
 		</div>
 		${typeof state.source !== 'object' ? null : yo`<div class="QuestionExpert-source">Source:
@@ -78,7 +79,7 @@ const expertView = state => {
 	</div>`;
 };
 
-module.exports = view;
+module.exports = Question;
 
 const MOCK_DATA = {
 	isMock: true,
@@ -93,8 +94,6 @@ const MOCK_DATA = {
 const MOCK_SEND = () => {};
 MOCK_SEND.event = MOCK_SEND;
 
-const mockView = () => {
-	return view(MOCK_DATA, MOCK_SEND);
-};
+const MockQuestion = () => Question(MOCK_DATA, MOCK_SEND);
 
-module.exports.mockView = mockView;
+module.exports.MockQuestion = MockQuestion;

@@ -10,43 +10,19 @@
       "email": "gourlay.colin@abc.net.au"
     }
   ],
+  "aunty": {
+    "type": "basic-app",
+    "build": {
+      "useCSSModules": false
+    }
+  },
   "devDependencies": {
-    "babel-preset-es2015": "^6.5.0",
-    "babelify": "^7.2.0",
-    "brfs": "~1.4.3",
-    "grunt": "^1.0.1",
-    "grunt-browserify": "^5.0.0",
-    "grunt-contrib-clean": "^1.0.0",
-    "grunt-contrib-connect": "^1.0.2",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-handlebars": "^1.0.0",
-    "grunt-contrib-jshint": "^1.0.0",
-    "grunt-contrib-sass": "^1.0.0",
-    "grunt-contrib-uglify": "^1.0.1",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-version": "^1.1.1",
-    "load-grunt-config": "~0.19.1",
-    "news-deploy-project-grunt": "git+ssh://git@stash.abc-dev.net.au:7999/news/news-deploy-project-grunt.git#2.3.0",
-    "time-grunt": "~1.3.0"
+    "@abcnews/aunty": "^5.1.3"
   },
   "scripts": {
-    "start": "npm install && grunt"
-  },
-  "browserify": {
-    "transform": [
-      "brfs",
-      [
-        "babelify",
-        {
-          "presets": [
-            "es2015"
-          ]
-        }
-      ]
-    ]
+    "start": "aunty serve"
   },
   "dependencies": {
-    "fastclick": "^1.0.6",
     "firebase": "^3.0.5",
     "raf": "^3.2.0",
     "send-action": "^1.1.0",

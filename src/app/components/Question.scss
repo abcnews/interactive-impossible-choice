@@ -1,3 +1,5 @@
+@import "../../variables";
+
 .Question {
 	position: relative;
 	margin: 40px auto;
@@ -8,7 +10,6 @@
 	box-sizing: border-box;
 	box-shadow: $boxShadow;
 	background-color: $white;
-	font-family: $fontFamily;
 	font-size: 14px;
 	text-align: center;
 	line-height: 1.4;
@@ -53,6 +54,17 @@
 	font-size: 1.142857143em;
 }
 
+.is-part-of-response {
+  display: none;
+}
+
 .Question .is-part-of-response {
   display: block;
 }
+
+@import "./QuestionLabel";
+@import "./QuestionPersonalChoices";
+@import "./QuestionPublicResult";
+@import "./QuestionPublicChoices";
+@import "./QuestionPublicResponses";
+@import "./QuestionExpert";

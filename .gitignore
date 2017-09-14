@@ -1,6 +1,9 @@
+# dependencies
+/node_modules
+
+# builds
+/build
+
+# misc
 .DS_Store
-.sass-cache
-build
-design
-node_modules
 npm-debug.log
