@@ -1,16 +1,14 @@
 .QuestionExpert {
-
-}
-
-@media (max-width: #{$Parent-max-width + 2 * $Parent-horizontal-margin - 1}) {
-  .QuestionExpert {
+  @media #{$md-lg} {
     margin: 0 -7.5px;
   }
 }
 
+
+
 .QuestionExpert-response {
   margin: 0 auto;
-  max-width: $Parent-max-width;
+  max-width: 38.458rem; // Mock Odyssey column width
   text-align: left;
 }
 

@@ -8,7 +8,7 @@ h1 > .Kicker {
   text-transform: uppercase;
 }
 
-@media (min-width: #{$Parent-max-width + 2 * $Parent-horizontal-margin}) {
+@media #{$md-lg} {
   h1 > .Kicker {
     font-size: 22px;
   }

@@ -20,6 +20,5 @@ $bounceTimingFunction: cubic-bezier(.79,.27,.37,1.21);
 
 $fontSans: ABCSans, Helvetica, Arial, sans-serif;
 
-$Parent-max-width: 600px;
-$Parent-horizontal-margin: 15px;
-$Question-max-width: 804px;
+$md-sm: (max-width: 43.6875rem);
+$md-lg: (min-width: 61.25rem);

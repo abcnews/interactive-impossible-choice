@@ -38,7 +38,8 @@ const init = (config, $$questions) => {
   app(config, (err, views) => {
     if (err) { throw err; }
 
-    $$questions.each((index, el) => {
+    $$questions
+    .each((index, el) => {
       const $question = $(el);
       const $mock = $question.children().first();
       const id = $question.data(dataAttr('question'));
@@ -91,7 +92,7 @@ const unwrapped = ($el, _el) => {
   return is$Map ? $el.get() : $el;
 };
 
-const $$questions = getByKey('question').map(unwrapped);
+const $$questions = getByKey('question').map(unwrapped).addClass("u-pull-out");
 const configURL = getByKey('config').first().data(dataAttr('config'));
 const fetches = [$.Deferred(), $.Deferred()];
 const odyssey = $.Deferred();

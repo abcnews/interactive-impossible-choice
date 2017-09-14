@@ -11,9 +11,3 @@
 	text-align: center;
 	text-transform: uppercase;
 }
-
-@media (min-width: #{$Question-max-width + 2 * $Parent-horizontal-margin}) {
-	.QuestionLabel {
-		margin: -20px -30px 20px;
-	}
-}

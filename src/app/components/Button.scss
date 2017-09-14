@@ -22,10 +22,8 @@
 	-webkit-tap-highlight-color: transparent;
 	transition: opacity 0.25s $basicTimingFunction, background-color 0.25s $basicTimingFunction, color 0.25s $basicTimingFunction;
 	will-change: opacity, background-color, color;
-}
 
-@media (min-width: #{$Parent-max-width + 2 * $Parent-horizontal-margin}) {
-	.Button {
+	@media #{$md-lg} {
 		padding: 15px 25px;
 	}
 }
