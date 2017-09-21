@@ -1,17 +1,12 @@
 $black: #333;
 $white: #FFF;
 
-$darkerGrey: #666;
-$darkGrey: #757575;
-$grey: #999;
-$lightGrey: #E5E5E5;
-$lighterGrey: #EEE;
-$lightestGrey: #F9F9F9;
+$darkerGrey: #2E3638;
+$darkGrey: #666;
+$grey: #8F9FA3;
+$lightGrey: #EDF0F0;
 
-$blue: #426EB5;
-$lightBlue: #3B6DB6;
-$darkBlue: #0A538D;
-$orange: #BE4233;
+$primary: #876787;
 
 $boxShadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 
@@ -20,5 +15,8 @@ $bounceTimingFunction: cubic-bezier(.79,.27,.37,1.21);
 
 $fontSans: ABCSans, Helvetica, Arial, sans-serif;
 
-$md-sm: (max-width: 43.6875rem);
-$md-lg: (min-width: 61.25rem);
+$mq-sm: (max-width: 43.6875rem);
+$mq-not-sm: (min-width: 43.6875rem);
+$mq-md: (min-width: 43.6875rem) and (max-width: 61.25rem);
+$mq-not-lg: (max-width: 61.25rem);
+$mq-lg: (min-width: 61.25rem);

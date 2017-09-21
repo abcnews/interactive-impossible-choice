@@ -11,7 +11,6 @@ const ns = require('util-news-selectors');
 require('./keyframes.scss');
 const app = require('./app');
 require('./app/components/Button.scss');
-require('./app/components/Kicker.scss');
 const { MockQuestion } = require('./app/components/Question');
 
 const PROJECT_ID = 'interactive-impossible-choice';
@@ -53,13 +52,6 @@ const init = (config, $$questions) => {
       $mock.replaceWith(views[id]);
     });
   });
-
-  const $title = $('h1');
-  const titleParts = $title.html().split(': ');
-
-  if (titleParts.length === 2) {
-    $title.html(`<div class="Kicker">${titleParts[0]}:</div>${titleParts[1]}`);
-  }
 };
 
 const dataAttr = key => `${PROJECT_ID}-${key}`;

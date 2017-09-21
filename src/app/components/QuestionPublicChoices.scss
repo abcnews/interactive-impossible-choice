@@ -1,7 +1,6 @@
 .QuestionPublicChoices {
 	margin: 12px 0 8px;
-	color: $darkerGrey;
-  font-family: $fontSans;
+	color: $grey;
 	font-weight: bold;
 	text-align: left;
 }
@@ -11,7 +10,7 @@
 }
 
 .QuestionPublicChoices-choice--selected {
-	color: $blue;
+	color: $primary;
 }
 
 .QuestionPublicChoices-choicePct {
@@ -32,7 +31,7 @@
 	overflow: hidden;
 	margin-top: 2px;
 	width: 100%;
-	background-color: $lighterGrey;
+	background-color: $lightGrey;
 }
 
 .QuestionPublicChoices-choiceBar {
@@ -42,5 +41,5 @@
 }
 
 .QuestionPublicChoices-choice--selected .QuestionPublicChoices-choiceBar {
-	background-color: $blue;
+	background-color: $primary;
 }

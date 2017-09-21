@@ -9,7 +9,6 @@
 	box-sizing: border-box;
 	background-color: $lightGrey;
 	color: $black;
-	font-family: $fontSans;
 	font-size: 1.142857143em;
 	line-height: 1.222222;
 	text-align: center;
@@ -23,13 +22,13 @@
 	transition: opacity 0.25s $basicTimingFunction, background-color 0.25s $basicTimingFunction, color 0.25s $basicTimingFunction;
 	will-change: opacity, background-color, color;
 
-	@media #{$md-lg} {
+	@media #{$mq-lg} {
 		padding: 15px 25px;
 	}
 }
 
 .Button--selected {
-	background-color: $lightBlue;
+	background-color: $primary;
 	color: $white;
 }
 

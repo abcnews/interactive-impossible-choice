@@ -8,13 +8,14 @@
 	box-sizing: border-box;
 	box-shadow: $boxShadow;
 	background-color: $white;
+	font-family: $fontSans;
 	font-size: 14px;
 	text-align: center;
 	line-height: 1.4;
 	animation: fadeIn .25s both;
 	will-change: opacity;
 
-	@media #{$md-sm} {
+	@media #{$mq-sm} {
 		font-size: 	14px;
 	}
 }
@@ -29,6 +30,14 @@
 	margin: 0;
 	font-weight: bold;
 	line-height: 1.2222;
+
+	@media #{$mq-md} {
+		line-height: 1.5;
+	}
+
+	@media #{$mq-lg} {
+		line-height: 2;
+	}
 }
 
 .Question .h1 {

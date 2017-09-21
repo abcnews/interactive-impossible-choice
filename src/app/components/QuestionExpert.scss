@@ -1,5 +1,5 @@
 .QuestionExpert {
-  @media #{$md-lg} {
+  @media #{$mq-lg} {
     margin: 0 -7.5px;
   }
 }
@@ -25,6 +25,5 @@
   color: $grey;
 	font-size: 12px;
   font-style: italic;
-  font-family: $fontSans;
   text-align: left;
 }
