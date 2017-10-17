@@ -8,9 +8,11 @@ const questionsFromConfig = config =>
 
 const app = (config, callback) => {
   const submitGuess = question => {
-    config.database
-      .ref(`${config.id}/${question.id}/${question.guess}`)
-      .transaction(count => (typeof count !== 'number' ? 1 : count + 1));
+    if (config.database != null) {
+      config.database
+        .ref(`${config.id}/${question.id}/${question.guess}`)
+        .transaction(count => (typeof count !== 'number' ? 1 : count + 1));
+    }
   };
 
   const create = publicCounts => {
