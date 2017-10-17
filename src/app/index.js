@@ -3,27 +3,25 @@ const sendAction = require('send-action');
 const yo = require('yo-yo');
 const Question = require('./components/Question');
 
-const questionsFromConfig = config => config.questions.map(question => Object.assign({guess: null, label: config.labels}, question));
-
-const isComplete = state => state.questions.every(question => question.guess !== null);
+const questionsFromConfig = config =>
+  config.questions.map(question => Object.assign({ guess: null, label: config.labels }, question));
 
 const app = (config, callback) => {
-  const submitGuesses = state => {
-    state.questions.forEach(question => {
-      config.database.ref(`${config.id}/${question.id}/${question.guess}`)
-      .transaction(count => typeof count !== 'number' ? 1 : count + 1);
-    });
+  const submitGuess = question => {
+    config.database
+      .ref(`${config.id}/${question.id}/${question.guess}`)
+      .transaction(count => (typeof count !== 'number' ? 1 : count + 1));
   };
 
   const create = publicCounts => {
     config.questions.forEach(question => {
-      const publicGuesses = Array.isArray(publicCounts[question.id]) ?
-      publicCounts[question.id] :
-      question.choices.reduce((memo, choice, index) => {
-        memo[index] = 0;
+      const publicGuesses = Array.isArray(publicCounts[question.id])
+        ? publicCounts[question.id]
+        : question.choices.reduce((memo, choice, index) => {
+            memo[index] = 0;
 
-        return memo;
-      }, {});
+            return memo;
+          }, {});
 
       question.publicGuesses = Object.keys(publicGuesses).map(choice_index => {
         return publicGuesses[choice_index] || 0;
@@ -45,12 +43,7 @@ const app = (config, callback) => {
             }
             question.guess = params.guess;
             question.publicGuesses[params.guess]++;
-            const wasLastGuess = isComplete(state);
-            if (wasLastGuess) {
-              if (config.database) {
-                submitGuesses(state);
-              }
-            }
+            submitGuess(question);
             break;
           default:
             break;
@@ -82,9 +75,12 @@ const app = (config, callback) => {
   if (config.dbDump != null && config.dbDump[config.id]) {
     create(config.dbDump[config.id]);
   } else if (config.database != null) {
-    config.database.ref(config.id).once('value').then(snapshot => {
-      create(snapshot.val());
-    });
+    config.database
+      .ref(config.id)
+      .once('value')
+      .then(snapshot => {
+        create(snapshot.val());
+      });
   } else {
     callback(new Error('No database or dbDump provided, or config.id not present in either.'));
   }
