@@ -16,19 +16,21 @@ const app = (config, callback) => {
   };
 
   const create = publicCounts => {
-    config.questions.forEach(question => {
-      const publicGuesses = Array.isArray(publicCounts[question.id])
-        ? publicCounts[question.id]
-        : question.choices.reduce((memo, choice, index) => {
-            memo[index] = 0;
+    if (typeof publicCounts === 'object') {
+      config.questions.forEach(question => {
+        const publicGuesses = Array.isArray(publicCounts[question.id])
+          ? publicCounts[question.id]
+          : question.choices.reduce((memo, choice, index) => {
+              memo[index] = 0;
 
-            return memo;
-          }, {});
+              return memo;
+            }, {});
 
-      question.publicGuesses = Object.keys(publicGuesses).map(choice_index => {
-        return publicGuesses[choice_index] || 0;
+        question.publicGuesses = Object.keys(publicGuesses).map(choice_index => {
+          return publicGuesses[choice_index] || 0;
+        });
       });
-    });
+    }
 
     const send = sendAction({
       onaction: (params, state) => {
@@ -44,8 +46,11 @@ const app = (config, callback) => {
               break;
             }
             question.guess = params.guess;
-            question.publicGuesses[params.guess]++;
-            submitGuess(question);
+
+            if (question.publicGuesses) {
+              question.publicGuesses[params.guess]++;
+              submitGuess(question);
+            }
             break;
           default:
             break;
@@ -74,17 +79,21 @@ const app = (config, callback) => {
     callback(null, views);
   };
 
+  const localFallback = setTimeout(() => create(), 2000);
+
   if (config.dbDump != null && config.dbDump[config.id]) {
+    clearTimeout(localFallback);
     create(config.dbDump[config.id]);
   } else if (config.database != null) {
     config.database
       .ref(config.id)
       .once('value')
       .then(snapshot => {
+        clearTimeout(localFallback);
         create(snapshot.val());
       });
   } else {
-    callback(new Error('No database or dbDump provided, or config.id not present in either.'));
+    console.error(new Error('No database or dbDump provided, or config.id not present in either.'));
   }
 };
 
