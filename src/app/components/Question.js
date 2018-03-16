@@ -16,14 +16,16 @@ const Question = (state, send) => {
   	<div class="QuestionLabel">${state.label || 'Question'}</div>
   	<div class="h1">${state.statement}</div>
   	${QuestionPersonalChoices(state, send)}
-		${state.publicGuesses && state.guess !== null
-      ? [
-          yo`<div class="h2">What does everybody else think?</div>`,
-          QuestionPublicResult(state),
-          QuestionPublicChoices(state),
-          yo`<div class="QuestionPublicResponses">from ${state.publicGuessesTotal} responses</div>`
-        ]
-      : null}
+		${
+      state.publicGuesses && state.guess !== null
+        ? [
+            yo`<div class="h2">What does everybody else think?</div>`,
+            QuestionPublicResult(state),
+            QuestionPublicChoices(state),
+            yo`<div class="QuestionPublicResponses">from ${state.publicGuessesTotal} responses</div>`
+          ]
+        : null
+    }
 		${state.guess !== null && state.response && state.response.length ? QuestionExpert(state) : null}
   </div>`;
 };
@@ -33,16 +35,15 @@ const QuestionPersonalChoices = (state, send) => {
 		${state.choices.map((choice, index) => {
       let className = 'Button';
 
-      if (state.guess !== null) {
-        className += ' Button--disabled';
-      }
-
       if (state.guess === index) {
         className += ' Button--selected';
       }
 
       return yo`<div class="QuestionPersonalChoices-choice">
-				<div class="${className}" onclick=${send.event('guess', { question: state.id, guess: index })}>${choice}</div>
+				<button class="${className}" disabled=${state.guess !== null ? '' : false} onclick=${send.event('guess', {
+        question: state.id,
+        guess: index
+      })}>${choice}</button>
 			</div>`;
     })}
 	</div>`;
@@ -66,9 +67,9 @@ const QuestionPublicChoices = state => {
       return yo`<div class="${className}">
 				<div class="QuestionPublicChoices-choicePct">${state.publicGuessPercentages[index]}%</div>
 				<div class="QuestionPublicChoices-choiceText">${choice}</div>
-				<div class="QuestionPublicChoices-choiceTrack"><div style="width: ${state.publicGuessPercentages[
-          index
-        ]}%;" class="QuestionPublicChoices-choiceBar"></div></div>
+				<div class="QuestionPublicChoices-choiceTrack"><div style="width: ${
+          state.publicGuessPercentages[index]
+        }%;" class="QuestionPublicChoices-choiceBar"></div></div>
 			</div>`;
     })}
 	</div>`;
@@ -79,11 +80,13 @@ const QuestionExpert = state => {
 		<div class="QuestionExpert-response u-richtext">
 			${state.response}
 		</div>
-		${typeof state.source !== 'object'
-      ? null
-      : yo`<div class="QuestionExpert-source">Source:
+		${
+      typeof state.source !== 'object'
+        ? null
+        : yo`<div class="QuestionExpert-source">Source:
 			${state.source.url ? yo`<a href="${state.source.url}">${state.source.name}</a>` : state.source.name}
-		</div>`}
+		</div>`
+    }
 	</div>`;
 };
 

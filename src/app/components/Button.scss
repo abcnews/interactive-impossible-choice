@@ -1,41 +1,42 @@
-@import "../../variables";
+@import '../../variables';
 
 .Button {
-	position: relative;
-	border: none;
-	border-radius: 5px;
-	padding: 10px 25px;
-	width: 100%;
-	box-sizing: border-box;
-	background-color: $lightGrey;
-	color: $black;
-	font-size: 1.142857143em;
-	line-height: 1.222222;
-	text-align: center;
-	white-space: nowrap;
-	cursor: pointer;
- 	-webkit-user-select: none;
-	-moz-user-select: none;
- 	-ms-user-select: none;
- 	user-select: none;
-	-webkit-tap-highlight-color: transparent;
-	transition: opacity 0.25s $basicTimingFunction, background-color 0.25s $basicTimingFunction, color 0.25s $basicTimingFunction;
-	will-change: opacity, background-color, color;
+  position: relative;
+  border: none;
+  border-radius: 5px !important;
+  padding: 10px 25px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: $lightGrey;
+  color: $black;
+  font-size: 1.142857143em;
+  line-height: 1.222222;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.25s $basicTimingFunction, background-color 0.25s $basicTimingFunction,
+    color 0.25s $basicTimingFunction;
+  will-change: opacity, background-color, color;
 
-	@media #{$mq-lg} {
-		padding: 15px 25px;
-	}
+  @media #{$mq-lg} {
+    padding: 15px 25px;
+  }
 }
 
 .Button--selected {
-	background-color: $primary;
-	color: $white;
+  background-color: $primary;
+  color: $white;
 }
 
-.Button--disabled {
-	pointer-events: none;
+.Button[disabled] {
+  pointer-events: none;
 }
 
-.Button--disabled:not(.Button--selected) {
-	opacity: 0.5;
+.Button[disabled]:not(.Button--selected) {
+  opacity: 0.5;
 }
