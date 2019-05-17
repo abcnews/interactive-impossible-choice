@@ -1,32 +1,32 @@
 {
-	"name": "interactive-impossible-choice",
-	"version": "2.3.2",
-	"description": "Let the audience make impossible choices, then reveal public consensus and expert opinions.",
-	"private": true,
-	"repository": "ssh://git@stash.abc-dev.net.au:7999/news/interactive-impossible-choice.git",
-	"contributors": [
-		{
-			"name": "Colin Gourlay",
-			"email": "gourlay.colin@abc.net.au"
-		}
-	],
-	"aunty": {
-		"type": "basic-app",
-		"build": {
-			"useCSSModules": false
-		}
-	},
-	"devDependencies": {
-		"@abcnews/aunty": "^10.4.0"
-	},
-	"scripts": {
-		"start": "aunty serve"
-	},
-	"dependencies": {
-		"firebase": "^3.0.5",
-		"raf": "^3.2.0",
-		"send-action": "^1.1.0",
-		"util-news-selectors": "git+ssh://git@stash.abc-dev.net.au:7999/news/util-news-selectors.git#2.2.0",
-		"yo-yo": "^1.2.0"
-	}
+  "name": "interactive-impossible-choice",
+  "version": "2.3.2",
+  "description": "Let the audience make impossible choices, then reveal public consensus and expert opinions.",
+  "private": true,
+  "repository": "ssh://git@stash.abc-dev.net.au:7999/news/interactive-impossible-choice.git",
+  "contributors": [
+    {
+      "name": "Colin Gourlay",
+      "email": "gourlay.colin@abc.net.au"
+    }
+  ],
+  "aunty": {
+    "type": "basic",
+    "build": {
+      "useCSSModules": false
+    }
+  },
+  "devDependencies": {
+    "@abcnews/aunty": "^10.4.0"
+  },
+  "scripts": {
+    "start": "aunty serve"
+  },
+  "dependencies": {
+    "firebase": "^3.0.5",
+    "raf": "^3.2.0",
+    "send-action": "^1.1.0",
+    "util-news-selectors": "git+ssh://git@stash.abc-dev.net.au:7999/news/util-news-selectors.git#2.2.0",
+    "yo-yo": "^1.2.0"
+  }
 }
