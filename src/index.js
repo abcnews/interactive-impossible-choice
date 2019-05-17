@@ -35,10 +35,11 @@ const init = (config, $$questions) => {
   }
 
   app(config, (err, views) => {
-    if (err) { throw err; }
+    if (err) {
+      throw err;
+    }
 
-    $$questions
-    .each((index, el) => {
+    $$questions.each((index, el) => {
       const $question = $(el);
       const $mock = $question.children().first();
       const id = $question.data(dataAttr('question'));
@@ -69,7 +70,7 @@ const getByKey = key => {
 };
 
 const unwrapped = ($el, _el) => {
-  const is$Map = (typeof $el === 'number');
+  const is$Map = typeof $el === 'number';
 
   $el = is$Map ? $(_el) : $el;
 
@@ -84,18 +85,24 @@ const unwrapped = ($el, _el) => {
   return is$Map ? $el.get() : $el;
 };
 
-const $$questions = getByKey('question').map(unwrapped).addClass("u-pull-out");
-const configURL = getByKey('config').first().data(dataAttr('config'));
+const $$questions = getByKey('question')
+  .map(unwrapped)
+  .addClass('u-pull-out');
+const configURL = getByKey('config')
+  .first()
+  .data(dataAttr('config'));
 const fetches = [$.Deferred(), $.Deferred()];
 const odyssey = $.Deferred();
 
-$.getJSON(configURL).done((config) => {
+$.getJSON(configURL).done(config => {
   fetches[0].resolve(config);
 });
 
 try {
-  const dbDumpURL = getByKey('db-dump').first().data(dataAttr('db-dump'));
-  $.getJSON(dbDumpURL).done((dbDump) => {
+  const dbDumpURL = getByKey('db-dump')
+    .first()
+    .data(dataAttr('db-dump'));
+  $.getJSON(dbDumpURL).done(dbDump => {
     fetches[1].resolve(dbDump);
   });
 } catch (e) {
@@ -112,8 +119,7 @@ if (window.__ODYSSEY__) {
 
 mock($$questions);
 
-$.when(fetches[0], fetches[1], odyssey)
-.done((config, dbDump) => {
+$.when(fetches[0], fetches[1], odyssey).done((config, dbDump) => {
   config.dbDump = dbDump;
 
   $$questions.each((index, el) => {
@@ -129,7 +135,7 @@ $.when(fetches[0], fetches[1], odyssey)
 
     let $next = $question.next();
 
-    while ($next.length && !$next.is('h2,a[name]')) {
+    while ($next.length && !$next.is('h2,a[name="endresponse"]')) {
       question.response.push($next.addClass('is-part-of-response').get(0));
       $next = $next.next();
     }
