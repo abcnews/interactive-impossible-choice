@@ -17,7 +17,7 @@
     }
   },
   "devDependencies": {
-    "@abcnews/aunty": "^10.4.0"
+    "@abcnews/aunty": "^10.4.2"
   },
   "scripts": {
     "start": "aunty serve"
