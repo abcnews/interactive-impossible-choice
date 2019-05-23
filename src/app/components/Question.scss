@@ -52,10 +52,10 @@
 
 .is-part-of-response {
   display: none;
+}
 
-  img& {
-    height: auto;
-  }
+img.is-part-of-response {
+  height: auto;
 }
 
 .Question .is-part-of-response {
