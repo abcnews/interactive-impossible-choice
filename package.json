@@ -1,6 +1,6 @@
 {
 	"name": "interactive-impossible-choice",
-	"version": "2.3.3",
+	"version": "2.3.4",
 	"description": "Let the audience make impossible choices, then reveal public consensus and expert opinions.",
 	"private": true,
 	"repository": "ssh://git@stash.abc-dev.net.au:7999/news/interactive-impossible-choice.git",
