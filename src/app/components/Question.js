@@ -8,7 +8,7 @@ const Question = (state, send) => {
     state.publicGuessesTotal = state.publicGuesses.reduce(sum, 0);
 
     state.publicGuessPercentages = state.publicGuesses.map(value => {
-      return Math.round(value / state.publicGuessesTotal * 100);
+      return Math.round((value / state.publicGuessesTotal) * 100);
     });
   }
 

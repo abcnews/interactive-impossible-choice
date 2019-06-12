@@ -8,10 +8,8 @@ const questionsFromConfig = config =>
 
 const app = (config, callback) => {
   const submitGuess = question => {
-    if (config.database != null) {
-      config.database
-        .ref(`${config.id}/${question.id}/${question.guess}`)
-        .transaction(count => (typeof count !== 'number' ? 1 : count + 1));
+    if (config.pollCountersClient != null) {
+      config.pollCountersClient.increment({ question: question.id, answer: String(question.guess) });
     }
   };
 
@@ -19,7 +17,7 @@ const app = (config, callback) => {
     if (typeof publicCounts === 'object') {
       config.questions.forEach(question => {
         const publicGuesses = Array.isArray(publicCounts[question.id])
-          ? publicCounts[question.id]
+          ? question.choices.map((_, index) => publicCounts[question.id][index] || 0)
           : question.choices.reduce((memo, choice, index) => {
               memo[index] = 0;
 
@@ -84,17 +82,22 @@ const app = (config, callback) => {
   if (config.dbDump != null && config.dbDump[config.id]) {
     clearTimeout(localFallback);
     create(config.dbDump[config.id]);
-  } else if (config.database != null) {
-    config.database
-      .ref(config.id)
-      .once('value')
-      .then(snapshot => {
-        clearTimeout(localFallback);
-        create(snapshot.val());
-      });
+  } else if (config.pollCountersClient != null) {
+    config.pollCountersClient.get((err, group) => {
+      clearTimeout(localFallback);
+      create(group ? group.value : generateInitialPublicCounts(config));
+    });
   } else {
     console.error(new Error('No database or dbDump provided, or config.id not present in either.'));
   }
 };
+
+function generateInitialPublicCounts(config) {
+  return config.questions.reduce((memo, question) => {
+    memo[question.id] = question.choices.map(() => 0);
+
+    return memo;
+  }, {});
+}
 
 module.exports = app;

@@ -5,8 +5,7 @@
  * @author Colin Gourlay <gourlay.colin@abc.net.au>
  */
 
-const firebase = require('firebase/app');
-require('firebase/database');
+const { Client } = require('@abcnews/poll-counters-client');
 const ns = require('util-news-selectors');
 require('./keyframes.scss');
 const app = require('./app');
@@ -15,12 +14,6 @@ const { MockQuestion } = require('./app/components/Question');
 
 const PROJECT_ID = 'interactive-impossible-choice';
 const HTML_FRAGMENT_SELECTOR = ns('embed:fragment');
-const FIREBASE_APP_CONFIG = {
-  apiKey: 'AIzaSyDZHVgCwT8UgeMwByM96Qr-grqbwf3QzeM',
-  authDomain: 'impossible-choice.firebaseapp.com',
-  databaseURL: 'https://impossible-choice.firebaseio.com',
-  storageBucket: 'impossible-choice.appspot.com'
-};
 
 const mock = $$questions => {
   $$questions.each((index, el) => {
@@ -30,8 +23,7 @@ const mock = $$questions => {
 
 const init = (config, $$questions) => {
   if (typeof config.dbDump !== 'object') {
-    firebase.initializeApp(FIREBASE_APP_CONFIG);
-    config.database = firebase.database();
+    config.pollCountersClient = new Client(`${PROJECT_ID}__${config.id}`);
   }
 
   app(config, (err, views) => {
