@@ -1,22 +1,22 @@
 $black: #333;
-$white: #FFF;
+$white: #fff;
 
-$darkerGrey: #2E3638;
+$darkerGrey: #2e3638;
 $darkGrey: #666;
-$grey: #8F9FA3;
-$lightGrey: #EDF0F0;
+$grey: #8f9fa3;
+$lightGrey: #edf0f0;
 
 $primary: #876787;
 
 $boxShadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 
-$basicTimingFunction: cubic-bezier(0,0,0.3,1);
-$bounceTimingFunction: cubic-bezier(.79,.27,.37,1.21);
+$basicTimingFunction: cubic-bezier(0, 0, 0.3, 1);
+$bounceTimingFunction: cubic-bezier(0.79, 0.27, 0.37, 1.21);
 
 $fontSans: ABCSans, Helvetica, Arial, sans-serif;
 
-$mq-sm: (max-width: 43.6875rem);
-$mq-not-sm: (min-width: 43.6875rem);
-$mq-md: (min-width: 43.6875rem) and (max-width: 61.25rem);
-$mq-not-lg: (max-width: 61.25rem);
-$mq-lg: (min-width: 61.25rem);
+$mq-sm: "(max-width: 43.6875rem)";
+$mq-not-sm: "(min-width: 43.6875rem)";
+$mq-md: "(min-width: 43.6875rem) and (max-width: 61.25rem)";
+$mq-not-lg: "(max-width: 61.25rem)";
+$mq-lg: "(min-width: 61.25rem)";

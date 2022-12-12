@@ -1,0 +1,41 @@
+/* Header video art direction */
+
+@media (max-width: 699px) {
+  .Header video {
+    left: -23%;
+  }
+}
+
+/* Header kicker */
+
+.is-dark .Header-content > h1 > small {
+  color: #ffb08e;
+}
+
+.Header-content > h1 > small::after {
+  content: " :";
+}
+
+/* Heading icons */
+
+.Main > [data-mount][id="case"] + h2::before {
+  content: none;
+}
+
+.Main > [data-mount][id="case"] + h2 > * {
+  display: inline-block;
+}
+
+.Main > [data-mount][id="case"] + h2 > :first-child {
+  margin: 3rem auto 0.5rem !important;
+}
+
+.Main > [data-mount][id="case"] + h2 > * + * {
+  display: block;
+}
+
+.Main > [data-mount][id="case"] + h2 > * > * {
+  width: 50%;
+  height: auto;
+  margin: auto;
+}

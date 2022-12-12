@@ -1,32 +1,40 @@
-const raf = require('raf');
-const sendAction = require('send-action');
-const yo = require('yo-yo');
-const Question = require('./components/Question');
+import sendAction from "send-action";
+import { update } from "yo-yo";
+import Question from "./components/Question";
 
-const questionsFromConfig = config =>
-  config.questions.map(question => Object.assign({ guess: null, label: config.labels }, question));
+const questionsFromConfig = (config) =>
+  config.questions.map((question) =>
+    Object.assign({ guess: null, label: config.labels }, question)
+  );
 
 const app = (config, callback) => {
-  const submitGuess = question => {
+  const submitGuess = (question) => {
     if (config.pollCountersClient != null) {
-      config.pollCountersClient.increment({ question: question.id, answer: String(question.guess) });
+      config.pollCountersClient.increment({
+        question: question.id,
+        answer: String(question.guess),
+      });
     }
   };
 
-  const create = publicCounts => {
-    if (typeof publicCounts === 'object') {
-      config.questions.forEach(question => {
+  const create = (publicCounts) => {
+    if (typeof publicCounts === "object") {
+      config.questions.forEach((question) => {
         const publicGuesses = Array.isArray(publicCounts[question.id])
-          ? question.choices.map((_, index) => publicCounts[question.id][index] || 0)
-          : question.choices.reduce((memo, choice, index) => {
+          ? question.choices.map(
+              (_, index) => publicCounts[question.id][index] || 0
+            )
+          : question.choices.reduce((memo, _choice, index) => {
               memo[index] = 0;
 
               return memo;
             }, {});
 
-        question.publicGuesses = Object.keys(publicGuesses).map(choice_index => {
-          return publicGuesses[choice_index] || 0;
-        });
+        question.publicGuesses = Object.keys(publicGuesses).map(
+          (choice_index) => {
+            return publicGuesses[choice_index] || 0;
+          }
+        );
       });
     }
 
@@ -35,11 +43,13 @@ const app = (config, callback) => {
         let question;
 
         if (params.question != null) {
-          question = state.questions.filter(question => question.id === params.question)[0];
+          question = state.questions.find(
+            (question) => question.id === params.question
+          );
         }
 
         switch (params.type) {
-          case 'guess':
+          case "guess":
             if (question == null || question.guess !== null) {
               break;
             }
@@ -56,16 +66,16 @@ const app = (config, callback) => {
 
         return state;
       },
-      onchange: (params, state) => {
-        raf(() => {
-          state.questions.forEach(questionState => {
-            yo.update(views[questionState.id], Question(questionState, send));
+      onchange: (_params, state) => {
+        requestAnimationFrame(() => {
+          state.questions.forEach((questionState) => {
+            update(views[questionState.id], Question(questionState, send));
           });
         });
       },
       state: {
-        questions: questionsFromConfig(config)
-      }
+        questions: questionsFromConfig(config),
+      },
     });
 
     const views = send.state().questions.reduce((memo, questionState) => {
@@ -88,9 +98,15 @@ const app = (config, callback) => {
       create(group ? group.value : generateInitialPublicCounts(config));
     });
   } else {
-    console.error(new Error('No database or dbDump provided, or config.id not present in either.'));
+    console.error(
+      new Error(
+        "No database or dbDump provided, or config.id not present in either."
+      )
+    );
   }
 };
+
+export default app;
 
 function generateInitialPublicCounts(config) {
   return config.questions.reduce((memo, question) => {
@@ -99,5 +115,3 @@ function generateInitialPublicCounts(config) {
     return memo;
   }, {});
 }
-
-module.exports = app;

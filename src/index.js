@@ -1,28 +1,21 @@
-/*!
- * interactive-impossible-choice
- *
- * @version development
- * @author Colin Gourlay <gourlay.colin@abc.net.au>
- */
+import { Client } from "@abcnews/poll-counters-client";
+import { getMountValue, selectMounts } from "@abcnews/mount-utils";
+import "./keyframes.scss";
+import app from "./app";
+import "./app/components/Button.scss";
+import { MockQuestion } from "./app/components/Question";
+import { whenOdysseyLoaded } from "@abcnews/env-utils";
 
-const { Client } = require('@abcnews/poll-counters-client');
-const ns = require('util-news-selectors');
-require('./keyframes.scss');
-const app = require('./app');
-require('./app/components/Button.scss');
-const { MockQuestion } = require('./app/components/Question');
+const PROJECT_ID = "interactive-impossible-choice";
 
-const PROJECT_ID = 'interactive-impossible-choice';
-const HTML_FRAGMENT_SELECTOR = ns('embed:fragment');
-
-const mock = $$questions => {
-  $$questions.each((index, el) => {
-    $(el).append(MockQuestion());
+const mock = (questionsEls) => {
+  questionsEls.forEach((el) => {
+    el.appendChild(MockQuestion());
   });
 };
 
-const init = (config, $$questions) => {
-  if (typeof config.dbDump !== 'object') {
+const init = (config, questionsEls) => {
+  if (typeof config.dbDump !== "object") {
     config.pollCountersClient = new Client(`${PROJECT_ID}__${config.id}`);
   }
 
@@ -31,93 +24,33 @@ const init = (config, $$questions) => {
       throw err;
     }
 
-    $$questions.each((index, el) => {
-      const $question = $(el);
-      const $mock = $question.children().first();
-      const id = $question.data(dataAttr('question'));
-      const question = config.questions.filter(question => question.id === id)[0];
+    questionsEls.forEach((questionEl) => {
+      const mockEl = questionEl.firstChild;
+      const [, id] = getMountValue(questionEl).split(":");
+      const question = config.questions.find((question) => question.id === id);
+
+      questionEl.removeChild(mockEl);
 
       if (question == null) {
-        $mock.remove();
         return;
       }
 
-      $mock.replaceWith(views[id]);
+      questionEl.appendChild(views[id]);
     });
   });
 };
 
-const dataAttr = key => `${PROJECT_ID}-${key}`;
+whenOdysseyLoaded.then(() => {
+  const config = window.__IMPOSSIBLE_CHOICE_CONFIG__;
+  const questionsEls = selectMounts("question");
 
-const dataAttrSelector = key => `[data-${dataAttr(key)}]`;
+  questionsEls.forEach((el) => el.classList.add("u-pull-out"));
 
-const getByKey = key => {
-  const $els = $(dataAttrSelector(key));
+  mock(questionsEls);
 
-  if (!$els.length) {
-    throw `"${key}" not found`;
-  }
-
-  return $els;
-};
-
-const unwrapped = ($el, _el) => {
-  const is$Map = typeof $el === 'number';
-
-  $el = is$Map ? $(_el) : $el;
-
-  $el.unwrap();
-
-  // If last element we unwrapped was just the preview site's
-  // <span id="CTX-\d+"> wrapper, we need to unwrap again.
-  if ($el.parent().is(HTML_FRAGMENT_SELECTOR)) {
-    $el.unwrap();
-  }
-
-  return is$Map ? $el.get() : $el;
-};
-
-const $$questions = getByKey('question')
-  .map(unwrapped)
-  .addClass('u-pull-out');
-const configURL = getByKey('config')
-  .first()
-  .data(dataAttr('config'));
-const fetches = [$.Deferred(), $.Deferred()];
-const odyssey = $.Deferred();
-
-$.getJSON(configURL).done(config => {
-  fetches[0].resolve(config);
-});
-
-try {
-  const dbDumpURL = getByKey('db-dump')
-    .first()
-    .data(dataAttr('db-dump'));
-  $.getJSON(dbDumpURL).done(dbDump => {
-    fetches[1].resolve(dbDump);
-  });
-} catch (e) {
-  fetches[1].resolve();
-}
-
-if (window.__ODYSSEY__) {
-  odyssey.resolve();
-} else {
-  window.addEventListener('odyssey:api', () => {
-    odyssey.resolve();
-  });
-}
-
-mock($$questions);
-
-$.when(fetches[0], fetches[1], odyssey).done((config, dbDump) => {
-  config.dbDump = dbDump;
-
-  $$questions.each((index, el) => {
-    const $question = $(el);
-    const id = $question.data(dataAttr('question'));
-    const question = config.questions.filter(question => question.id === id)[0];
+  questionsEls.forEach((questionEl) => {
+    const [, id] = getMountValue(questionEl).split(":");
+    const question = config.questions.find((question) => question.id === id);
 
     if (question == null) {
       return;
@@ -125,13 +58,14 @@ $.when(fetches[0], fetches[1], odyssey).done((config, dbDump) => {
 
     question.response = [];
 
-    let $next = $question.next();
+    let nextEl = questionEl.nextElementSibling;
 
-    while ($next.length && !$next.is('h2,a[name="endresponse"]')) {
-      question.response.push($next.addClass('is-part-of-response').get(0));
-      $next = $next.next();
+    while (nextEl != null && !nextEl.matches("h2,[data-mount]")) {
+      nextEl.classList.add("is-part-of-response");
+      question.response.push(nextEl);
+      nextEl = nextEl.nextElementSibling;
     }
   });
 
-  init(config, $$questions);
+  init(config, questionsEls);
 });
